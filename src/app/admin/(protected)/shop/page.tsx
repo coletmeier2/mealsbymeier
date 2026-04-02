@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { getAllProducts } from "@/modules/shop/queries"
 import { toggleFeatured, deleteProduct } from "@/modules/shop/actions"
 
@@ -15,7 +16,12 @@ export default async function AdminShopPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-semibold text-stone-900">Shop</h1>
-        {/* Add product form — Phase 2 */}
+        <Link
+          href="/admin/shop/new"
+          className="px-4 py-2 bg-stone-900 text-white text-sm font-medium rounded-lg hover:bg-stone-700 transition-colors"
+        >
+          New Product
+        </Link>
       </div>
 
       {products.length === 0 ? (
