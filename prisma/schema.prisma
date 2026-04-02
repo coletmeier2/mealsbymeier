@@ -1,0 +1,95 @@
+// Prisma 7 schema — client generated to src/generated/prisma
+// Config (datasource URL) lives in prisma.config.ts
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Post {
+  id                   String   @id @default(cuid())
+  imageUrl             String
+  caption              String
+  publishedToSite      Boolean  @default(false)
+  publishedToInstagram Boolean  @default(false)
+  instagramPostId      String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String
+  price       Int         // stored in cents
+  imageUrl    String
+  isFeatured  Boolean     @default(false)
+  recipeId    String?     @unique
+  recipe      Recipe?     @relation(fields: [recipeId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Recipe {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   // markdown
+  pdfUrl    String?
+  product   Product?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id                    String          @id @default(cuid())
+  customerName          String
+  customerEmail         String
+  customerPhone         String
+  fulfillmentType       FulfillmentType
+  deliveryAddress       String?
+  status                OrderStatus     @default(PENDING)
+  stripePaymentIntentId String          @unique
+  totalAmount           Int             // stored in cents
+  items                 OrderItem[]
+  recipeAccess          RecipeAccess[]
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  productId   String
+  quantity    Int
+  priceAtTime Int     // cents, snapshot at time of purchase
+  order       Order   @relation(fields: [orderId], references: [id])
+  product     Product @relation(fields: [productId], references: [id])
+}
+
+model RecipeAccess {
+  id          String   @id @default(cuid())
+  orderId     String
+  recipeId    String
+  accessToken String   @unique @default(cuid())
+  createdAt   DateTime @default(now())
+  order       Order    @relation(fields: [orderId], references: [id])
+}
+
+enum FulfillmentType {
+  PICKUP
+  DELIVERY
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  READY
+  COMPLETED
+  CANCELLED
+}
