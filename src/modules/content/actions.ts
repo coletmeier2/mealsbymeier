@@ -12,6 +12,7 @@ export async function createPost(formData: FormData) {
   const imageUrl = formData.get("imageUrl") as string
   const caption = formData.get("caption") as string
   const publishTarget = formData.get("publishTarget") as PublishTarget
+  const category = (formData.get("category") as string) || null
 
   if (!imageUrl || !caption) throw new Error("imageUrl and caption are required")
 
@@ -19,10 +20,10 @@ export async function createPost(formData: FormData) {
   const publishedToInstagram = publishTarget === "instagram" || publishTarget === "both"
 
   await db.post.create({
-    data: { imageUrl, caption, publishedToSite, publishedToInstagram },
+    data: { imageUrl, caption, category, publishedToSite, publishedToInstagram },
   })
 
-  revalidatePath("/feed")
+  revalidatePath("/")
   revalidatePath("/admin/posts")
 }
 

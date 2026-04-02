@@ -1,33 +1,31 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Cormorant_Garamond, Inter } from "next/font/google"
+import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-});
+  weight: ["300", "400", "500", "600"],
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
   title: "MealsByMeier",
   description: "Homemade recipes and fresh baked goods by Cole Meier.",
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
-  );
+  )
 }

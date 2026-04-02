@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { createPost } from "@/modules/content/actions"
 import ImageUpload from "@/components/ImageUpload"
+import { CATEGORIES } from "@/modules/content/categories"
 
 export const metadata = { title: "New Post | Admin" }
 
@@ -38,6 +39,24 @@ export default function NewPostPage() {
             placeholder="Write your caption..."
             className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400 resize-none"
           />
+        </div>
+
+        <div>
+          <label htmlFor="category" className="block text-sm font-medium text-stone-700 mb-2">
+            Category
+          </label>
+          <select
+            id="category"
+            name="category"
+            className="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-stone-400 bg-white"
+          >
+            <option value="">— No category —</option>
+            {CATEGORIES.map((cat) => (
+              <option key={cat.slug} value={cat.slug}>
+                {cat.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>
