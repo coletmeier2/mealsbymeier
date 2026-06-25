@@ -13,6 +13,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           </Link>
           <div className="flex gap-8">
             {[
+              { href: "/",      label: "Home"  },
               { href: "/shop",  label: "Shop"  },
               { href: "/about", label: "About" },
             ].map(({ href, label }) => (
