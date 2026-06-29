@@ -3,7 +3,7 @@ import { getRecentSitePosts, getPostsByCategory } from "@/modules/content/querie
 import { CATEGORIES } from "@/modules/content/categories"
 import Slideshow from "@/components/Slideshow"
 import StickyWordmark from "@/components/StickyWordmark"
-
+ 
 export default async function HomePage() {
   const [recentPosts, ...categoryResults] = await Promise.all([
     getRecentSitePosts(10),

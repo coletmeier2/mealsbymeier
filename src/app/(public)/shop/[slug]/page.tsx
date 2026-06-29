@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getProductBySlug } from "@/modules/shop/queries"
+import CheckoutWrapper from "@/components/CheckoutWrapper"
 
 export default async function ProductPage({
   params,
@@ -71,13 +72,7 @@ export default async function ProductPage({
               Orders are fulfilled locally — pickup or delivery coordinated after purchase.
             </p>
 
-            {/* Stripe checkout — Phase 2 */}
-            <button
-              disabled
-              className="w-full font-sans text-xs tracking-widest uppercase border border-gold/20 text-muted py-4 cursor-not-allowed"
-            >
-              Order Now — Coming Soon
-            </button>
+            <CheckoutWrapper productId={product.id} productSlug={slug} />
           </div>
         </div>
       </div>
