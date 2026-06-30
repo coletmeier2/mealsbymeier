@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getStripe } from "@/lib/stripe"
 import { db } from "@/lib/db"
+import { sendOrderConfirmationEmail } from "@/modules/notifications/email"
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
@@ -46,8 +47,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid fulfillment type in metadata" }, { status: 400 })
     }
 
+    let order
     try {
-      await db.order.create({
+      order = await db.order.create({
         data: {
           customerName: meta.customerName,
           customerEmail: meta.customerEmail,
@@ -65,9 +67,18 @@ export async function POST(req: NextRequest) {
             },
           },
         },
+        include: {
+          items: { include: { product: true } },
+        },
       })
     } catch {
       return NextResponse.json({ error: "Failed to create order" }, { status: 400 })
+    }
+
+    try {
+      await sendOrderConfirmationEmail(order)
+    } catch (err) {
+      console.error("Failed to send order confirmation email:", err)
     }
   }
 
