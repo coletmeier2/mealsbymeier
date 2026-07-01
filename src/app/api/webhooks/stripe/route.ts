@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getStripe } from "@/lib/stripe"
 import { db } from "@/lib/db"
 import { sendOrderConfirmationEmail } from "@/modules/notifications/email"
+import { sendOrderSmsAlert } from "@/modules/notifications/sms"
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
@@ -79,6 +80,12 @@ export async function POST(req: NextRequest) {
       await sendOrderConfirmationEmail(order)
     } catch (err) {
       console.error("Failed to send order confirmation email:", err)
+    }
+
+    try {
+      await sendOrderSmsAlert(order)
+    } catch (err) {
+      console.error("Failed to send order SMS alert:", err)
     }
   }
 
