@@ -155,16 +155,16 @@ Token-gated recipe download link. Generated per order, per recipe.
 - [x] Post upload + public feed
 - [x] Shop page + product management
 - [x] Admin dashboard with stats
-- [ ] Connect Neon database (`DATABASE_URL`)
-- [ ] First `prisma migrate dev`
-- [ ] Cloudinary setup + image upload in admin
+- [x] Connect Neon database (`DATABASE_URL`)
+- [x] First `prisma migrate dev`
+- [x] Cloudinary setup + image upload in admin
 
 ### Phase 2 — Commerce
-- [ ] Stripe checkout + webhooks
-- [ ] Order status dashboard + actions
+- [x] Stripe checkout + webhooks
+- [x] Order status dashboard + actions
 - [ ] Recipe attachment to products + PDF generation (`@react-pdf/renderer`)
-- [ ] Email delivery (Resend) + recipe download page (`/recipes/[token]`)
-- [ ] SMS notifications (Twilio) for admin + customer status updates
+- [x] Email delivery (Resend) + recipe download page (`/recipes/[token]`)
+- [x] SMS notifications (Twilio) for admin + customer status updates
 
 ### Phase 3 — Instagram
 - [ ] Facebook Page + Instagram Business account setup
