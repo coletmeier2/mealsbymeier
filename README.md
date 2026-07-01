@@ -15,7 +15,7 @@ Three pillars: a public recipe feed, a baked goods shop, and an admin dashboard 
 | Auth | NextAuth v5 (credentials strategy) |
 | Image Storage | Cloudinary |
 | Styling | Tailwind CSS (stone palette) |
-| Payments | Stripe (Phase 2) |
-| Email | Resend (Phase 2) |
-| SMS | Twilio (Phase 2) |
+| Payments | Stripe |
+| Email | Resend  |
+| SMS | Twilio |
 | Deployment | Vercel |
