@@ -44,6 +44,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           >
             Orders
           </Link>
+          <Link
+            href="/admin/recipes"
+            className="px-3 py-2 rounded-lg hover:bg-stone-100 hover:text-stone-900 transition-colors"
+          >
+            Recipes
+          </Link>
         </nav>
         <div className="p-3 border-t border-stone-200">
           <form action={signOutAction}>
