@@ -21,6 +21,12 @@ export async function createRecipe(formData: FormData): Promise<void> {
     })
 
     if (productId) {
+      // Clear any other product that may already point to this new recipe (defensive),
+      // then link the selected product — mirrors updateRecipe's unlink-then-relink pattern
+      await tx.product.updateMany({
+        where: { recipeId: recipe.id },
+        data: { recipeId: null },
+      })
       await tx.product.update({
         where: { id: productId },
         data: { recipeId: recipe.id },

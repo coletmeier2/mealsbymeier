@@ -4,7 +4,7 @@ function formatPrice(cents: number) {
   return `$${(cents / 100).toFixed(2)}`
 }
 
-export function orderConfirmationHtml(order: OrderWithItems): string {
+export function orderConfirmationHtml(order: OrderWithItems, recipeUrl?: string): string {
   const itemRows = order.items
     .map(
       (item) => `
@@ -98,6 +98,22 @@ export function orderConfirmationHtml(order: OrderWithItems): string {
                   ${fulfillmentLine}
                 </p>
               </div>
+
+              ${recipeUrl ? `
+              <!-- Recipe access -->
+              <div style="margin-top: 32px; padding: 24px; background-color: #1a1410; text-align: center;">
+                <p style="margin: 0 0 6px; color: #c8a96e; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">
+                  Your Recipe
+                </p>
+                <p style="margin: 0 0 20px; color: #f5f0e8; font-size: 14px; line-height: 1.6;">
+                  Your purchase includes access to the full recipe. Click below to view it.
+                </p>
+                <a href="${recipeUrl}"
+                   style="display: inline-block; padding: 12px 28px; background-color: #c8a96e; color: #1a1410; font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 1px; text-transform: uppercase;">
+                  View Recipe
+                </a>
+              </div>
+              ` : ""}
 
               <p style="margin: 32px 0 0; color: #8a8070; font-size: 13px; line-height: 1.6;">
                 Questions? Reply to this email and I&apos;ll get back to you.

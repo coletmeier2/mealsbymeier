@@ -67,17 +67,25 @@ export async function POST(req: NextRequest) {
               priceAtTime: product.price,
             },
           },
+          ...(product.recipeId
+            ? { recipeAccess: { create: { recipeId: product.recipeId } } }
+            : {}),
         },
         include: {
           items: { include: { product: true } },
+          recipeAccess: true,
         },
       })
     } catch {
       return NextResponse.json({ error: "Failed to create order" }, { status: 400 })
     }
 
+    const accessToken = order.recipeAccess[0]?.accessToken
+    const appUrl = new URL(req.url).origin
+    const recipeUrl = accessToken ? `${appUrl}/recipes/${accessToken}` : undefined
+
     try {
-      await sendOrderConfirmationEmail(order)
+      await sendOrderConfirmationEmail(order, recipeUrl)
     } catch (err) {
       console.error("Failed to send order confirmation email:", err)
     }
