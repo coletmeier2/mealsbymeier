@@ -1,11 +1,15 @@
+import { unstable_cache } from "next/cache"
 import { db } from "@/lib/db"
 
-export async function getFeaturedProducts() {
-  return db.product.findMany({
-    where: { isFeatured: true },
-    orderBy: { createdAt: "desc" },
-  })
-}
+export const getFeaturedProducts = unstable_cache(
+  async () =>
+    db.product.findMany({
+      where: { isFeatured: true },
+      orderBy: { createdAt: "desc" },
+    }),
+  ["featured-products"],
+  { tags: ["featured-products"] }
+)
 
 export async function getAllProducts() {
   return db.product.findMany({

@@ -1,13 +1,14 @@
+import { cache } from "react"
 import { db } from "@/lib/db"
 
-export async function getRecipeByToken(token: string) {
+export const getRecipeByToken = cache(async (token: string) => {
   return db.recipeAccess.findUnique({
     where: { accessToken: token },
     include: {
       recipe: true,
     },
   })
-}
+})
 
 export async function getAllRecipes() {
   return db.recipe.findMany({
