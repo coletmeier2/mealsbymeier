@@ -38,19 +38,19 @@ const components: Components = {
       {children}
     </blockquote>
   ),
-  code: ({ children, className }) => {
-    const isBlock = className?.startsWith("language-")
-    return isBlock ? (
-      <code className="block bg-surface text-gold font-mono text-sm p-4 rounded overflow-x-auto mb-4 whitespace-pre">
-        {children}
-      </code>
+  pre: ({ children }) => (
+    <div className="bg-surface rounded overflow-x-auto mb-4 whitespace-pre p-4">
+      {children}
+    </div>
+  ),
+  code: ({ children, className }) =>
+    className ? (
+      <code className="text-gold font-mono text-sm">{children}</code>
     ) : (
       <code className="bg-surface text-gold font-mono text-xs px-1.5 py-0.5 rounded">
         {children}
       </code>
-    )
-  },
-  pre: ({ children }) => <>{children}</>,
+    ),
 }
 
 export default function RecipeContent({ content }: { content: string }) {

@@ -4,7 +4,7 @@ function formatPrice(cents: number) {
   return `$${(cents / 100).toFixed(2)}`
 }
 
-export function orderConfirmationHtml(order: OrderWithItems, recipeUrl?: string): string {
+export function orderConfirmationHtml(order: OrderWithItems, recipeUrl?: string, recipePdfUrl?: string): string {
   const itemRows = order.items
     .map(
       (item) => `
@@ -112,6 +112,14 @@ export function orderConfirmationHtml(order: OrderWithItems, recipeUrl?: string)
                    style="display: inline-block; padding: 12px 28px; background-color: #c8a96e; color: #1a1410; font-size: 13px; font-weight: 600; text-decoration: none; letter-spacing: 1px; text-transform: uppercase;">
                   View Recipe
                 </a>
+                ${recipePdfUrl ? `
+                <p style="margin: 16px 0 0;">
+                  <a href="${recipePdfUrl}"
+                     style="color: #c8a96e; font-size: 11px; text-decoration: underline; letter-spacing: 1px;">
+                    Download PDF
+                  </a>
+                </p>
+                ` : ""}
               </div>
               ` : ""}
 

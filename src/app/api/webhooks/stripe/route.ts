@@ -83,9 +83,10 @@ export async function POST(req: NextRequest) {
     const accessToken = order.recipeAccess[0]?.accessToken
     const appUrl = new URL(req.url).origin
     const recipeUrl = accessToken ? `${appUrl}/recipes/${accessToken}` : undefined
+    const recipePdfUrl = accessToken ? `${appUrl}/api/recipes/${accessToken}/pdf` : undefined
 
     try {
-      await sendOrderConfirmationEmail(order, recipeUrl)
+      await sendOrderConfirmationEmail(order, recipeUrl, recipePdfUrl)
     } catch (err) {
       console.error("Failed to send order confirmation email:", err)
     }

@@ -44,8 +44,18 @@ export default async function RecipePage({
       {/* Content */}
       <RecipeContent content={recipe.content} />
 
+      {/* Download */}
+      <div className="mt-12">
+        <a
+          href={`/api/recipes/${token}/pdf`}
+          className="inline-block font-sans text-xs tracking-widest uppercase px-6 py-3 border border-gold/50 text-gold hover:bg-gold/10 transition-colors"
+        >
+          Download PDF
+        </a>
+      </div>
+
       {/* Footer note */}
-      <div className="mt-16 pt-8 border-t border-gold/20">
+      <div className="mt-8 pt-8 border-t border-gold/20">
         <p className="font-sans text-xs text-muted text-center tracking-wide">
           This recipe is personal to your order — please don&apos;t share the link.
         </p>
