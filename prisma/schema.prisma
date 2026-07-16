@@ -86,6 +86,13 @@ model RecipeAccess {
   recipe      Recipe   @relation(fields: [recipeId], references: [id])
 }
 
+model InstagramToken {
+  id        String   @id @default(cuid())
+  token     String
+  expiresAt DateTime
+  updatedAt DateTime @updatedAt
+}
+
 enum FulfillmentType {
   PICKUP
   DELIVERY
